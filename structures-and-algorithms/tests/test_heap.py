@@ -22,40 +22,30 @@ class TestHeap(unittest.TestCase):
                     )
                 child = parent
 
-    def testAdd(self):
+    def testEnqueue(self):
         heap = Heap()
-        heap.add(1)
-        heap.add(2)
-        heap.add(6)
-        heap.add(5)
-        heap.add(33)
-        heap.add(2)
-        heap.add(100)
+        heap.enqueue(1)
+        heap.enqueue(2)
+        heap.enqueue(6)
+        heap.enqueue(5)
+        heap.enqueue(33)
+        heap.enqueue(2)
+        heap.enqueue(100)
         self.assertHasHeapProperty(heap)
         self.assertListEqual([100, 6, 33, 1, 5, 2, 2], heap.heap)
 
-    def testAddList(self):
+    def testEnqueueList(self):
         heap = Heap()
-        heap.add_list([1, 2, 6, 5, 33, 2, 100])
+        heap.enqueue_list([1, 2, 6, 5, 33, 2, 100])
         self.assertHasHeapProperty(heap)
         self.assertListEqual([100, 6, 33, 1, 5, 2, 2], heap.heap)
 
-    def testPop(self):
+    def testDequeue(self):
         heap = Heap()
-        heap.add_list([1, 2, 6, 5, 33, 2, 100])
-        heap.pop()
+        heap.enqueue_list([1, 2, 6, 5, 33, 2, 100])
+        heap.dequeue()
         self.assertHasHeapProperty(heap)
-        self.assertListEqual([33, 6, 2, 5, 2, 1], heap.heap)
-
-    def testSort(self):
-        heap = Heap()
-        heap.add_list([1, 2, 6, 5, 33, 2, 100])
-        sorted_by_builtin = sorted(heap.heap, reverse=True)
-        sorted_by_heap = []
-        for i in range(len(heap)):
-            sorted_by_heap.append(heap.pop())
-
-        self.assertListEqual(sorted_by_heap, sorted_by_builtin)
+        self.assertListEqual([33, 6, 2, 1, 5, 2], heap.heap)
 
 
 if __name__ == '__main__':

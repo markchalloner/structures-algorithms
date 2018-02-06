@@ -7,5 +7,5 @@ class HeapSort:
     def sort(cls, heap):
         out = []
         for i in range(len(heap)):
-            out.append(heap.pop())
+            out.append(heap.dequeue())
         return out

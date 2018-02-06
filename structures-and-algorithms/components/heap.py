@@ -24,40 +24,81 @@ class Heap:
     def __str__(self):
         return str(self.heap)
 
-    def add(self, item):
+    def enqueue(self, item):
         self.heap.append(item)
-        self.restore_heap_property()
+        self.restore_heap_order_up()
 
-    def add_list(self, items):
+    def enqueue_list(self, items):
         for item in items:
-            self.add(item)
+            self.enqueue(item)
 
-    def pop(self):
-        item = self.heap.pop(0)
+    def dequeue(self):
         count = len(self.heap)
 
+        if count == 0:
+            return
+
+        if count == 1:
+            return self.heap.pop()
+
+        item = self.heap[0]
+
+        # Replace root node with last item.
+        self.heap[0] = self.heap.pop()
+
         # Restore heap property on all leaf nodes.
-        for i in range(count // 2, count):
-            self.restore_heap_property(i)
+        self.restore_heap_order_down()
+
         return item
 
-    def restore_heap_property(self, child=None):
-        if len(self) == 0:
+    def restore_heap_order_up(self, child=None):
+        count = len(self)
+
+        if count == 0:
             return
 
         if child is None:
-            child = len(self) - 1
+            child = count - 1
 
         if child == 0:
             return
 
         parent = (child - 1) // 2
 
-        # Swap if child node does not compare succesfully to parent.
+        # Swap if child node does not compare successfully to parent.
         if self.comparator(self.heap[child], self.heap[parent]):
-            tmp = self.heap[parent]
-            self.heap[parent] = self.heap[child]
-            self.heap[child] = tmp
+            self.heap[parent], self.heap[child] = self.heap[child], self.heap[parent]
 
         # Recurse up the tree.
-        self.restore_heap_property(parent)
+        self.restore_heap_order_up(parent)
+
+    def restore_heap_order_down(self, parent=None):
+        count = len(self)
+
+        if count == 0:
+            return
+
+        if parent is None:
+            parent = 0
+
+        if parent == count - 1:
+            return
+
+        # Get child to swap with
+        child1 = (parent * 2) + 1
+        child2 = child1 + 1
+
+        if child1 > count - 1:
+            return
+
+        if child2 > count - 1 or self.comparator(self.heap[child1], self.heap[child2]):
+            child = child1
+        else:
+            child = child2
+
+        # Swap if parent node does not compare successfully to child.
+        if self.comparator(self.heap[child], self.heap[parent]):
+            self.heap[parent], self.heap[child] = self.heap[child], self.heap[parent]
+
+        # Recurse down tree.
+        self.restore_heap_order_down(child)

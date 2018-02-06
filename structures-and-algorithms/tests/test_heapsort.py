@@ -8,7 +8,7 @@ class TestHeapSort(unittest.TestCase):
     def testSort(self):
         items = [1, 2, 6, 5, 33, 2, 100]
         heap = Heap()
-        heap.add_list(items)
+        heap.enqueue_list(items)
         self.assertListEqual(HeapSort.sort(heap), sorted(items, reverse=True))
 
 
