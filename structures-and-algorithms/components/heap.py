@@ -26,6 +26,8 @@ class Heap:
 
     def enqueue(self, item):
         self.heap.append(item)
+
+        # Restore heap order up the tree.
         self.restore_heap_order_up()
 
     def enqueue_list(self, items):
@@ -46,7 +48,7 @@ class Heap:
         # Replace root node with last item.
         self.heap[0] = self.heap.pop()
 
-        # Restore heap property on all leaf nodes.
+        # Restore heap order down the tree.
         self.restore_heap_order_down()
 
         return item
@@ -69,7 +71,7 @@ class Heap:
         if self.comparator(self.heap[child], self.heap[parent]):
             self.heap[parent], self.heap[child] = self.heap[child], self.heap[parent]
 
-        # Recurse up the tree.
+
         self.restore_heap_order_up(parent)
 
     def restore_heap_order_down(self, parent=None):
