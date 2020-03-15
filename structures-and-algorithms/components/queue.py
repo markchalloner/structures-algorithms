@@ -1,3 +1,5 @@
+# Or use collections.deque.
+
 class Queue:
     def __init__(self):
         self.items = []
