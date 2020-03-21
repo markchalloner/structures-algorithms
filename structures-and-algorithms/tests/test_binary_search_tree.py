@@ -1,11 +1,11 @@
-from ..components.binary_tree import BinaryTree
+from ..components.binary_search_tree import BinarySearchTree
 import unittest
 
 
-class TestBinaryTree(unittest.TestCase):
+class TestBinarySearchTree(unittest.TestCase):
 
     def testAdd(self):
-        binary_tree = BinaryTree()
+        binary_tree = BinarySearchTree()
         binary_tree.add(2)
         binary_tree.add(0)
         binary_tree.add(4)
@@ -14,7 +14,7 @@ class TestBinaryTree(unittest.TestCase):
         self.assertEqual(binary_tree.to_list(), [0, 2, 3, 4, 5])
 
     def testSearch(self):
-        binary_tree = BinaryTree()
+        binary_tree = BinarySearchTree()
         binary_tree.add(2)
         binary_tree.add(0)
         binary_tree.add(4)

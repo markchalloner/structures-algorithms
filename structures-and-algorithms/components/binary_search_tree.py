@@ -1,16 +1,16 @@
-class BinaryTreeItem():
+class BinarySearchTreeItem:
     def __init__(self, value):
         self.value = value
         self.left = None
         self.right = None
 
 
-class BinaryTree:
+class BinarySearchTree:
     def __init__(self):
         self.root = None
 
     def add(self, value):
-        item = BinaryTreeItem(value)
+        item = BinarySearchTreeItem(value)
         if self.root is None:
             self.root = item
         else:
