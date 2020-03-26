@@ -17,17 +17,17 @@ class BinarySearchTree:
             current = self.root
             while current:
                 if item.value < current.value:
-                    if current.left:
-                        current = current.left
-                    else:
+                    if current.left is None:
                         current.left = item
                         break
-                else:
-                    if current.right:
-                        current = current.right
                     else:
+                        current = current.left
+                else:
+                    if current.right is None:
                         current.right = item
                         break
+                    else:
+                        current = current.right
 
     def search(self, index):
         return self.to_list()[index]
