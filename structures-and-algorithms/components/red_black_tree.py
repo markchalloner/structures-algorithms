@@ -24,19 +24,73 @@ class RedBlackTree:
             return None
         return grandparent.left if item is parent.right else grandparent.right
 
-    def _swap(self, item_1, item_2):
-        if item_1.parent:
-            if item_1 is item_1.parent.left:
-                item_1.parent.left = item_2
-            else:
-                item_1.parent.right = item_2
-        if item_2.parent:
-            if item_2 is item_2.parent.left:
-                item_2.parent.left = item_1
-            else:
-                item_2.parent.right = item_1
-        item_2.parent, item_1.parent = item_1.parent, item_2.parent
-        return item_2, item_1
+    def _is_not_root_or_root_and_black(self, item):
+        if item is not self.root:
+            return True
+        if not item.black:
+            return False
+        return True
+
+    def _is_black_or_red_with_black_children(self, item):
+        if item.black:
+            return True
+        if item.left is not None and not item.left.black:
+            return False
+        if item.right is not None and not item.right.black:
+            return False
+        return True
+
+    def _is_black_height_correct(self, item):
+        # Path to item must have same number of black items as all other paths in the tree.
+        black_height = 0
+        while item:
+            if item.black:
+                black_height += 1
+            item = item.parent
+        if black_height != self.black_height:
+            return False
+        return True
+
+    def _is_valid(self, item):
+        return (
+            self._is_not_root_or_root_and_black(item)
+            and self._is_black_or_red_with_black_children(item)
+            and self._is_black_height_correct(item)
+        )
+
+    def _rotate_left(self, item, parent):
+        if item.left is not None:
+            raise NotImplementedError
+        grandparent = parent.parent
+        if grandparent is not None:
+            if parent is grandparent.left:
+                grandparent.left = item
+            elif parent is grandparent.right:
+                grandparent.right = item
+        if parent is self.root:
+            self.root = item
+        item.parent = grandparent
+        item.left = parent
+        parent.parent = item
+        parent.right = None
+        return item, parent
+
+    def _rotate_right(self, item, parent):
+        if item.right is not None:
+            raise NotImplementedError
+        grandparent = parent.parent
+        if grandparent is not None:
+            if parent is grandparent.left:
+                grandparent.left = item
+            elif parent is grandparent.right:
+                grandparent.right = item
+        if parent is self.root:
+            self.root = item
+        parent.parent = item
+        parent.left = None
+        item.parent = grandparent
+        item.right = parent
+        return item, parent
 
     def add(self, value):
         item = RedBlackTreeItem(value)
@@ -87,14 +141,15 @@ class RedBlackTree:
         if uncle is None or uncle.black:
             if parent is grandparent.left:
                 if item is parent.right:
-                    item, parent = self._swap(item, parent)
-                parent, grandparent = self._swap(parent, grandparent)
+                    item, parent = self._rotate_left(item, parent)
+                parent, grandparent = self._rotate_right(parent, grandparent)
             else:
                 if item is parent.left:
-                    item, parent = self._swap(item, parent)
-                parent, grandparent = self._swap(parent, grandparent)
+                    item, parent = self._rotate_right(item, parent)
+                parent, grandparent = self._rotate_left(parent, grandparent)
+        self._is_valid(item)
 
-    def to_list(self, root):
+    def to_list(self, root=None):
         items = []
         current = root or self.root
         if current:
