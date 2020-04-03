@@ -58,6 +58,7 @@ class RedBlackTree:
             and self._is_black_height_correct(item)
         )
 
+    # Todo: take only item and allow rotating with a left child.
     def _rotate_left(self, item, parent):
         if item.left is not None:
             raise NotImplementedError
@@ -75,6 +76,7 @@ class RedBlackTree:
         parent.right = None
         return item, parent
 
+    # Todo: take only item and allow rotating with a right child.
     def _rotate_right(self, item, parent):
         if item.right is not None:
             raise NotImplementedError
@@ -148,6 +150,47 @@ class RedBlackTree:
                     item, parent = self._rotate_right(item, parent)
                 parent, grandparent = self._rotate_left(parent, grandparent)
         self._is_valid(item)
+
+    def delete(self, item):
+        pass
+        # Todo: implement delete.
+        # self.remove_from_tree(item)
+        # if item.red:
+        #     if item.left and item.left.red:
+        #         item = item.left
+        #         item.red = False
+        #     if item.right and item.right.red:
+        #         item = item.right
+        #         item.red = False
+        #     return
+        # current = item
+        # while current:
+        #     parent = current.parent
+        #     sibling = self._get_sibling(current)
+        #     if item is parent.left:
+        #         if sibling.red:
+        #             parent.red = True
+        #             sibling.red = False
+        #             current, parent = self._rotate_left(current, parent)
+        #             sibling = self._get_sibling(current)
+        #         if not sibling.left or not sibling.left.red or not sibling.right or not sibling.right.red:
+        #             sibling.red = True
+        #             if parent.red:
+        #                 parent.red = False
+        #                 return
+        #             current = parent
+        #             continue
+        #         if sibling.left and sibling.left.red:
+        #             sibling.red = True
+        #             sibling.left.red = False
+        #             self._rotate_right(sibling.left, sibling)
+        #         if sibling.right and sibling.right.red:
+        #             sibling.right.red = False
+        #             parent.red = False
+        #             self._rotate_left(sibling, parent)
+        #     else:
+        #         do mirror
+        # return
 
     def to_list(self, root=None):
         items = []
