@@ -1,4 +1,4 @@
-class HeapSort:
+class Heapsort:
 
     def __init__(self):
         pass
