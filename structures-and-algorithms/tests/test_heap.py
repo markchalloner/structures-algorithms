@@ -24,6 +24,7 @@ class TestHeap(unittest.TestCase):
 
     def testEnqueue(self):
         heap = Heap()
+        heap.enqueue(99)
         heap.enqueue(1)
         heap.enqueue(2)
         heap.enqueue(6)
@@ -32,20 +33,20 @@ class TestHeap(unittest.TestCase):
         heap.enqueue(2)
         heap.enqueue(100)
         self.assertHasHeapProperty(heap)
-        self.assertListEqual([100, 6, 33, 1, 5, 2, 2], heap.heap)
+        self.assertListEqual([1, 5, 2, 99, 6, 33, 2, 100], heap.heap)
 
     def testEnqueueList(self):
         heap = Heap()
-        heap.enqueue_list([1, 2, 6, 5, 33, 2, 100])
+        heap.enqueue_list([99, 1, 2, 6, 5, 33, 2, 100])
         self.assertHasHeapProperty(heap)
-        self.assertListEqual([100, 6, 33, 1, 5, 2, 2], heap.heap)
+        self.assertListEqual([1, 5, 2, 99, 6, 33, 2, 100], heap.heap)
 
     def testDequeue(self):
         heap = Heap()
-        heap.enqueue_list([1, 2, 6, 5, 33, 2, 100])
+        heap.enqueue_list([99, 1, 2, 6, 5, 33, 2, 100])
         heap.dequeue()
         self.assertHasHeapProperty(heap)
-        self.assertListEqual([33, 6, 2, 1, 5, 2], heap.heap)
+        self.assertListEqual([2, 5, 2, 99, 6, 33, 100], heap.heap)
 
 
 if __name__ == '__main__':

@@ -4,7 +4,7 @@ class Heap:
 
     def __init__(self, comparator=None):
         if comparator is None:
-            comparator = lambda a, b: a > b
+            comparator = lambda a, b: a < b
         self.comparator = comparator
         self.heap = []
 

@@ -9,7 +9,7 @@ class TestHeapsort(unittest.TestCase):
         items = [99, 1, 2, 6, 5, 33, 2, 100]
         heap = Heap()
         heap.enqueue_list(items)
-        self.assertListEqual(Heapsort.sort(heap), sorted(items, reverse=True))
+        self.assertListEqual(Heapsort.sort(heap), sorted(items))
 
 
 if __name__ == '__main__':
