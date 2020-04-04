@@ -6,7 +6,7 @@ import unittest
 class TestHeapsort(unittest.TestCase):
 
     def testSort(self):
-        items = [1, 2, 6, 5, 33, 2, 100]
+        items = [99, 1, 2, 6, 5, 33, 2, 100]
         heap = Heap()
         heap.enqueue_list(items)
         self.assertListEqual(Heapsort.sort(heap), sorted(items, reverse=True))

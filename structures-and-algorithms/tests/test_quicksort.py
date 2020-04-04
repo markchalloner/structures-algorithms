@@ -5,7 +5,7 @@ import unittest
 class TestQuicksort(unittest.TestCase):
 
     def testSort(self):
-        items = [22, 2, 6, 5, 33, 2, 100]
+        items = [99, 1, 2, 6, 5, 33, 2, 100]
         self.assertListEqual(Quicksort.sort(items), sorted(items))
 
 

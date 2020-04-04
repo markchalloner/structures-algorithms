@@ -5,7 +5,7 @@ import unittest
 class TestSelectionSort(unittest.TestCase):
 
     def testSort(self):
-        items = [1, 2, 6, 5, 33, 2, 100]
+        items = [99, 1, 2, 6, 5, 33, 2, 100]
         self.assertListEqual(SelectionSort.sort(items), sorted(items))
 
 
